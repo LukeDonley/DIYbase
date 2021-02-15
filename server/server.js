@@ -1,6 +1,6 @@
 const express = require('express');
 const models = require('./models');
-const expressGraphQL = require('express-graphql');
+const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -11,6 +11,7 @@ const schema = require('./schema/schema');
 const app = express();
 
 const MONGO_URI = '';
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect(MONGO_URI);
@@ -35,7 +36,7 @@ app.use(passport.session());
 
 app.use(
   '/graphql',
-  expressGraphQL({
+  graphqlHTTP({
     schema,
     graphiql: true
   })
